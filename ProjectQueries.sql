@@ -23,17 +23,20 @@ from [SalesLT].[SalesOrderHeader];
 -- 4. Clean NA values, there are none. 
 
 -- 5. Create a table that has all customer and SalesOrderHeader information and call it CustomerOrder"
-Select *
+Select [SalesLT].[Customer].*, SalesOrderID, RevisionNumber, OrderDate,DueDate,ShipDate,Status,OnlineOrderFlag,SalesOrderNumber,PurchaseOrderNumber,AccountNumber,ShipToAddressID,BillToAddressID,ShipMethod,CreditCardApprovalCode,SubTotal,TaxAmt,Freight,TotalDue,Comment
+into CustomerOrder
 From [SalesLT].[Customer] 
 Inner Join [SalesLT].[SalesOrderHeader] On Customer.CustomerID = SalesOrderHeader.CustomerID
 
 -- 6. Create a table that Shows the CompanyName for James D. Kramer and Call it ""JamesCompany""
 Select FirstName, MiddleName, LastName, CompanyName
+into JamesCompany
 FROM [SalesLT].[Customer]
 WHERE  FirstName = 'James' AND LastName = 'Kramer'
 
 -- 7. Create a table that Shows OrdeQty, the Name and the ListPrice of the order made by CustomerID 29485 and call it ""OrderbyID29485.""
 Select Customer.CustomerID, Product.Name, Product.ListPrice, SalesOrderDetail.OrderQty
+into OrderbyID29485
 From [SalesLT].[Customer]
 INNER JOIN  [SalesLT].[SalesOrderHeader] ON Customer.CustomerID = SalesOrderHeader.CustomerID
 INNER JOIN [SalesLT].[SalesOrderDetail] ON SalesOrderHeader.SalesOrderID = SalesOrderDetail.SalesOrderID
